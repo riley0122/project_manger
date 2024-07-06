@@ -4,13 +4,15 @@ namespace ProjectManager;
 
 class Program
 {
-    public static List<List<string>> args_g;
+    public static List<List<string>>? args_g;
 
     public static List<List<string>> ParseArgs(string[] args)
     {
         List<List<string>> a = new List<List<string>>();
         for (int i = 0; i < args.Length; i++)
         {
+            if (!args[i].StartsWith("--")) continue;
+
             if (args[i].Contains("="))
             {
                 string current = args[i].Replace("\\\\", "🃏");
@@ -61,6 +63,27 @@ class Program
     public static void Main(string[] args)
     {
         args_g = ParseArgs(args);
+
+        string home_path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        string projects_path = System.IO.Path.Combine(home_path, "projects");
+        string config_file_path = System.IO.Path.Combine(projects_path, ".projectmanager.xml");
+
+        if (File.Exists(config_file_path))
+        {
+            // Exists
+        } else if (Directory.Exists(projects_path))
+        {
+            // Directory exists but not config file: Dont create it as there might be something there
+            Console.WriteLine("{0} Is an existing directory, but there is no config file there.\nPress any key to exit...", projects_path);
+            Console.ReadKey();
+            return;
+        } else
+        {
+            Console.WriteLine("Creating directory {0}", projects_path);
+            // Doesn't exist: create it
+            Directory.CreateDirectory(projects_path);
+            File.Create(config_file_path);
+        }
 
         if (HasArg(args_g, "test"))
         {
