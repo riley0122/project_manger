@@ -40,7 +40,7 @@ class Program
         return a;
     }
 
-    public static bool hasArg(List<List<string>> args, string name)
+    public static bool HasArg(List<List<string>> args, string name)
     {
         foreach (List<string> arg in args)
         {
@@ -49,7 +49,7 @@ class Program
         return false;
     }
 
-    public static string getArg(List<List<string>> args, string name)
+    public static string GetArg(List<List<string>> args, string name)
     {
         foreach (List<string> arg in args)
         {
@@ -62,7 +62,7 @@ class Program
     {
         args_g = ParseArgs(args);
 
-        if (hasArg(args_g, "test"))
+        if (HasArg(args_g, "test"))
         {
             Console.WriteLine("Running tests...");
             // TODO: Write tests
