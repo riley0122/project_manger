@@ -91,12 +91,5 @@ class Program
                                 + "\n</config>";
             File.WriteAllText(config_file_path, default_config);
         }
-
-        if (HasArg(args_g, "test"))
-        {
-            Console.WriteLine("Running tests...");
-            // TODO: Write tests
-            return;
-        }
     }
 }
