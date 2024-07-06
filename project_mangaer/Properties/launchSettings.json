@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "project_mangaer": {
+      "commandName": "Project",
+      "commandLineArgs": "--test"
+    }
+  }
+}
