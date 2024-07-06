@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Xml;
+using System.Collections.Generic;
 
 namespace ProjectManager;
 
@@ -70,7 +71,9 @@ class Program
 
         if (File.Exists(config_file_path))
         {
-            // Exists
+            // Exists: Read config
+            XmlDocument doc = new XmlDocument();
+            doc.Load(config_file_path);
         } else if (Directory.Exists(projects_path))
         {
             // Directory exists but not config file: Dont create it as there might be something there
@@ -82,7 +85,11 @@ class Program
             Console.WriteLine("Creating directory {0}", projects_path);
             // Doesn't exist: create it
             Directory.CreateDirectory(projects_path);
-            File.Create(config_file_path);
+            string default_config = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>"
+                                + "\n<config>"
+                                + "\n\t<defaultEditor>code</defaultEditor>"
+                                + "\n</config>";
+            File.WriteAllText(config_file_path, default_config);
         }
 
         if (HasArg(args_g, "test"))
