@@ -65,6 +65,7 @@ class Program
         if (hasArg(args_g, "test"))
         {
             Console.WriteLine("Running tests...");
+            // TODO: Write tests
             return;
         }
     }
